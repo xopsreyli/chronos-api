@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  nickname     String  @db.VarChar(16)
+  email        String  @unique
+  password     String
+
+  calendars    UserCalendar[]
+  arrangements Arrangement[]
+  reminders    Reminder[]
+  tasks        Task[]
+}
+
+model Calendar {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @db.Text
+  // isDefault   Boolean @default(false)
+
+  users       UserCalendar[]
+  arrangements Arrangement[]
+  reminders    Reminder[]
+  tasks        Task[]
+}
+
+// enum Rights {
+//   full
+//   self
+//   none
+// }
+
+model UserCalendar {
+  userId     Int
+  calendarId Int
+  // rights     Rights
+  // isActive   Boolean  @default(true)
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendar   Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+
+  @@id([userId, calendarId])
+}
+
+model Arrangement {
+  id          Int      @id @default(autoincrement())
+  calendarId  Int
+  userId      Int
+  title       String
+  description String   @db.Text
+  from        DateTime
+  to          DateTime
+
+  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Reminder {
+  id          Int      @id @default(autoincrement())
+  calendarId  Int
+  userId      Int
+  title       String
+  description String   @db.Text
+  dateTime    DateTime
+
+  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  calendarId  Int
+  userId      Int
+  title       String
+  description String   @db.Text
+  date        DateTime @db.Date
+
+  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

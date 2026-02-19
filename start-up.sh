@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-## Run migrations
-#echo "Running migrations..."
-#npm run migrate
+# Run migrations
+echo "Running migrations..."
+npm run migrate
 
 # Start the app
 if [ "$NODE_ENV" = "production" ]; then
