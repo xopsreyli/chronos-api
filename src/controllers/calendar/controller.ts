@@ -1,11 +1,8 @@
-import type { Request, Response } from 'express'
+import type {Request, Response} from 'express'
 import * as service from '../../services/calendar/service.js'
-import type { Calendar } from '../../generated/prisma/client.js'
+import type {Calendar} from '../../generated/prisma/client.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
-import type {
-    CalendarCreationData,
-    CalendarUpdateData,
-} from '../../types/calendar/calendar.js'
+import type {CalendarCreationData, CalendarUpdateData,} from '../../types/calendar/types.js'
 
 const getOne = async (req: Request, res: Response) => {
     const userId: number = req.userId!
@@ -40,4 +37,4 @@ const remove = async (req: Request, res: Response) => {
     res.sendStatus(statusCodes.NO_CONTENT)
 }
 
-export { getOne, create, update, remove }
+export {getOne, create, update, remove}

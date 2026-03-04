@@ -1,20 +1,16 @@
 import prisma from '../../lib/prisma/prisma.js'
-import type { Calendar } from '../../generated/prisma/client.js'
-import type { Nullable } from '../../types/common.js'
+import type {Calendar} from '../../generated/prisma/client.js'
+import type {Nullable} from '../../types/common.js'
 import AppError from '../../utils/AppError/AppError.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
 import errorMessages from '../../enums/error/messages/enums.js'
-import type {
-    CalendarCreationData,
-    CalendarUpdateData,
-    CalendarWithUsers,
-} from '../../types/calendar/calendar.js'
+import type {CalendarCreationData, CalendarUpdateData, CalendarWithUsers,} from '../../types/calendar/types.js'
 
 const getCalendarWithUsers = async (id: number): Promise<CalendarWithUsers> => {
     const calendar: Nullable<CalendarWithUsers> =
         await prisma.calendar.findUnique({
-            where: { id },
-            include: { users: true },
+            where: {id},
+            include: {users: true},
         })
 
     if (!calendar) {
@@ -42,7 +38,7 @@ const verifyAccess = (calendar: CalendarWithUsers, userId: number): void => {
 const getOne = async (id: number, userId: number): Promise<Calendar> => {
     const calendarWithUsers: CalendarWithUsers = await getCalendarWithUsers(id)
     verifyAccess(calendarWithUsers, userId)
-    const { users, ...calendar } = calendarWithUsers
+    const {users, ...calendar} = calendarWithUsers
 
     return calendar
 }
@@ -72,7 +68,7 @@ const update = async (
     verifyAccess(calendarWithUsers, userId)
 
     return prisma.calendar.update({
-        where: { id },
+        where: {id},
         data,
     })
 }
@@ -81,8 +77,8 @@ const remove = async (id: number, userId: number): Promise<void> => {
     const calendarWithUsers: CalendarWithUsers = await getCalendarWithUsers(id)
     verifyAccess(calendarWithUsers, userId)
     await prisma.calendar.delete({
-        where: { id },
+        where: {id},
     })
 }
 
-export { getOne, create, update, remove }
+export {getOne, create, update, remove}
