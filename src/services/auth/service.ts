@@ -9,6 +9,7 @@ import AppError from '../../utils/AppError/AppError.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
 import errorMessages from '../../enums/error/messages/enums.js'
 import type {SignInData, SignUpData} from "../../types/auth/types.js";
+import {DEFAULT_CALENDAR_DESCRIPTION, DEFAULT_CALENDAR_NAME,} from "../../enums/calendar/enums.js";
 
 const signUp = async (data: SignUpData): Promise<string> => {
     const existingUser: Nullable<User> = await prisma.user.findUnique({
@@ -29,6 +30,16 @@ const signUp = async (data: SignUpData): Promise<string> => {
             nickname: data.nickname,
             email: data.email,
             password: hashedPassword,
+            calendars: {
+                create: {
+                    calendar: {
+                        create: {
+                            name: DEFAULT_CALENDAR_NAME,
+                            description: DEFAULT_CALENDAR_DESCRIPTION
+                        }
+                    }
+                }
+            }
         },
     })
 
