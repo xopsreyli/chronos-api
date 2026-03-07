@@ -1,7 +1,7 @@
-import type {Request, Response} from 'express'
+import type { Request, Response } from 'express'
 import * as service from '../../services/auth/service.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
-import type {SignInData, SignUpData} from "../../types/auth/types.js";
+import type { SignInData, SignUpData } from '../../types/auth/types.js'
 
 const signUp = async (req: Request, res: Response) => {
     const data: SignUpData = req.body
@@ -37,4 +37,4 @@ const logout = async (req: Request, res: Response) => {
     }).sendStatus(statusCodes.OK)
 }
 
-export {signUp, signIn, logout}
+export { signUp, signIn, logout }

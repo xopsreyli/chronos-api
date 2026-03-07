@@ -1,19 +1,22 @@
 import bcrypt from 'bcrypt'
-import {SALT_ROUNDS} from '../../enums/bcrypt/enums.js'
-import type {User} from '../../generated/prisma/client.js'
+import { SALT_ROUNDS } from '../../enums/bcrypt/enums.js'
+import type { User } from '../../generated/prisma/client.js'
 import prisma from '../../lib/prisma/prisma.js'
 import jwt from 'jsonwebtoken'
-import {AUTH_TOKEN_LIFETIME} from '../../enums/jwt/enums.js'
-import type {Nullable} from '../../types/common.js'
+import { AUTH_TOKEN_LIFETIME } from '../../enums/jwt/enums.js'
+import type { Nullable } from '../../types/common.js'
 import AppError from '../../utils/AppError/AppError.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
 import errorMessages from '../../enums/error/messages/enums.js'
-import type {SignInData, SignUpData} from "../../types/auth/types.js";
-import {DEFAULT_CALENDAR_DESCRIPTION, DEFAULT_CALENDAR_NAME,} from "../../enums/calendar/enums.js";
+import type { SignInData, SignUpData } from '../../types/auth/types.js'
+import {
+    DEFAULT_CALENDAR_DESCRIPTION,
+    DEFAULT_CALENDAR_NAME,
+} from '../../enums/calendar/enums.js'
 
 const signUp = async (data: SignUpData): Promise<string> => {
     const existingUser: Nullable<User> = await prisma.user.findUnique({
-        where: {email: data.email},
+        where: { email: data.email },
     })
 
     if (existingUser) {
@@ -35,22 +38,22 @@ const signUp = async (data: SignUpData): Promise<string> => {
                     calendar: {
                         create: {
                             name: DEFAULT_CALENDAR_NAME,
-                            description: DEFAULT_CALENDAR_DESCRIPTION
-                        }
-                    }
-                }
-            }
+                            description: DEFAULT_CALENDAR_DESCRIPTION,
+                        },
+                    },
+                },
+            },
         },
     })
 
-    return jwt.sign({userId: user.id}, process.env.JWT_SECRET!, {
+    return jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
         expiresIn: AUTH_TOKEN_LIFETIME,
     })
 }
 
 const signIn = async (data: SignInData): Promise<string> => {
     const user: Nullable<User> = await prisma.user.findUnique({
-        where: {email: data.email},
+        where: { email: data.email },
     })
 
     if (!user) {
@@ -72,9 +75,9 @@ const signIn = async (data: SignInData): Promise<string> => {
         )
     }
 
-    return jwt.sign({userId: user.id}, process.env.JWT_SECRET!, {
+    return jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
         expiresIn: AUTH_TOKEN_LIFETIME,
     })
 }
 
-export {signUp, signIn}
+export { signUp, signIn }
