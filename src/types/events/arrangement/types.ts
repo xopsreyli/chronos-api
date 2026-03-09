@@ -4,3 +4,5 @@ export type ArrangementCreationData = {
     from: Date
     to: Date
 }
+
+export type ArrangementUpdateData = Partial<ArrangementCreationData>

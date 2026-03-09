@@ -3,6 +3,7 @@ import type {
     Event,
     EventCreationData,
     EventType,
+    EventUpdateData,
 } from '../../types/events/types.js'
 import arrangementService from './arrangement/service.js'
 import reminderService from './reminder/service.js'
@@ -31,7 +32,7 @@ const getCalendarEvents = async (
     return { arrangements, reminders, tasks }
 }
 
-const createEvent = async (
+const create = async (
     type: EventType,
     data: EventCreationData,
     calendarId: number,
@@ -42,4 +43,21 @@ const createEvent = async (
     return eventServices[type].create(data, calendarId, userId)
 }
 
-export { getCalendarEvents, createEvent }
+const update = (
+    type: EventType,
+    id: number,
+    data: EventUpdateData,
+    userId: number,
+): Promise<Event> => {
+    return eventServices[type].update(id, data, userId)
+}
+
+const remove = async (
+    type: EventType,
+    id: number,
+    userId: number,
+): Promise<void> => {
+    await eventServices[type].remove(id, userId)
+}
+
+export { getCalendarEvents, create, update, remove }

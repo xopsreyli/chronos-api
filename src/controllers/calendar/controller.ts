@@ -63,7 +63,7 @@ const createEvent = async (req: Request, res: Response) => {
     const id: number = Number(req.params.id)
     const type = req.query.type as EventType
     const data: EventCreationData = req.body
-    const event: Event = await eventsService.createEvent(type, data, id, userId)
+    const event: Event = await eventsService.create(type, data, id, userId)
 
     res.status(statusCodes.CREATED).json(event)
 }

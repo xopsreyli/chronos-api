@@ -3,3 +3,5 @@ export type ReminderCreationData = {
     description: string
     dateTime: Date
 }
+
+export type ReminderUpdateData = Partial<ReminderCreationData>

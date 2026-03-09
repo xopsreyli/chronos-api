@@ -3,3 +3,5 @@ export type TaskCreationData = {
     description: string
     date: Date
 }
+
+export type TaskUpdateData = Partial<TaskCreationData>
