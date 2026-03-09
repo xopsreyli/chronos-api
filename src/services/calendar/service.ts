@@ -6,6 +6,16 @@ import type {
 } from '../../types/calendar/types.js'
 import verifyCalendarAccess from '../../middleware/verifyCalendarAccess/verifyCalendarAccess.js'
 
+const getAll = (userId: number): Promise<Calendar[]> => {
+    return prisma.calendar.findMany({
+        where: {
+            users: {
+                some: { userId },
+            },
+        },
+    })
+}
+
 const getOne = async (id: number, userId: number): Promise<Calendar> => {
     await verifyCalendarAccess(id, userId)
 
@@ -48,4 +58,4 @@ const remove = async (id: number, userId: number): Promise<void> => {
     })
 }
 
-export { getOne, create, update, remove }
+export { getAll, getOne, create, update, remove }

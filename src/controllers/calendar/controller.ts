@@ -14,6 +14,13 @@ import type {
 } from '../../types/events/types.js'
 import * as eventsService from '../../services/events/service.js'
 
+const getAll = async (req: Request, res: Response) => {
+    const userId: number = req.userId!
+    const calendars: Calendar[] = await service.getAll(userId)
+
+    res.status(statusCodes.OK).json(calendars)
+}
+
 const getOne = async (req: Request, res: Response) => {
     const userId: number = req.userId!
     const id: number = Number(req.params.id)
@@ -68,4 +75,4 @@ const createEvent = async (req: Request, res: Response) => {
     res.status(statusCodes.CREATED).json(event)
 }
 
-export { getOne, create, update, remove, getEvents, createEvent }
+export { getAll, getOne, create, update, remove, getEvents, createEvent }

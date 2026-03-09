@@ -7,6 +7,7 @@ const router: Router = Router()
 
 router.use(verifyUser)
 
+router.get('/', controllerHandler(controller.getAll))
 router.get('/:id', controllerHandler(controller.getOne))
 router.post('/', controllerHandler(controller.create))
 router.patch('/:id', controllerHandler(controller.update))

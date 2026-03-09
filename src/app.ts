@@ -2,6 +2,7 @@ import express, { type Express } from 'express'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth/router.js'
 import calendarRouter from './routes/calendar/router.js'
+import eventsRouter from './routes/events/router.js'
 import errorHandler from './middleware/errorHandler/errorHandler.js'
 
 const app: Express = express()
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRouter)
 app.use('/api/calendars', calendarRouter)
+app.use('/api/events', eventsRouter)
 
 app.use(errorHandler)
 export default app
