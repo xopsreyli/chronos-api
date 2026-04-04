@@ -1,4 +1,5 @@
-import express, { type Express } from 'express'
+import express, {type Express} from 'express'
+import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth/router.js'
 import calendarRouter from './routes/calendar/router.js'
@@ -7,6 +8,10 @@ import errorHandler from './middleware/errorHandler/errorHandler.js'
 
 const app: Express = express()
 
+app.use(cors({
+    origin: process.env.APP_CLIENT,
+    credentials: true,
+}))
 app.use(express.json())
 app.use(cookieParser())
 
