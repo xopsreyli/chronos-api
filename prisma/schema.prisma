@@ -8,10 +8,10 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  nickname     String  @db.VarChar(16)
-  email        String  @unique
-  password     String
+  id       Int    @id @default(autoincrement())
+  nickname String @db.VarChar(16)
+  email    String @unique
+  password String
 
   calendars    UserCalendar[]
   arrangements Arrangement[]
@@ -23,9 +23,10 @@ model Calendar {
   id          Int     @id @default(autoincrement())
   name        String
   description String? @db.Text
+  color       String  @default("#7FFFD4")
   // isDefault   Boolean @default(false)
 
-  users       UserCalendar[]
+  users        UserCalendar[]
   arrangements Arrangement[]
   reminders    Reminder[]
   tasks        Task[]
@@ -43,8 +44,8 @@ model UserCalendar {
   // rights     Rights
   // isActive   Boolean  @default(true)
 
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  calendar   Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
 
   @@id([userId, calendarId])
 }
@@ -58,8 +59,8 @@ model Arrangement {
   from        DateTime
   to          DateTime
 
-  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Reminder {
@@ -70,8 +71,8 @@ model Reminder {
   description String   @db.Text
   dateTime    DateTime
 
-  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Task {
@@ -82,6 +83,6 @@ model Task {
   description String   @db.Text
   date        DateTime @db.Date
 
-  calendar    Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
