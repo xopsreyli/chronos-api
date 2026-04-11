@@ -1,4 +1,4 @@
-import express, {type Express} from 'express'
+import express, { type Express } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth/router.js'
@@ -26,7 +26,6 @@ app.use('/api/auth', authRouter)
 app.use('/api/user', userCurrentRouter)
 app.use('/api/calendars', calendarRouter)
 app.use('/api/events', eventsRouter)
-
 
 app.use(errorHandler)
 export default app

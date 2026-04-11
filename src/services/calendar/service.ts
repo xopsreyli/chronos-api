@@ -13,6 +13,7 @@ const getAll = (userId: number): Promise<Calendar[]> => {
                 some: { userId },
             },
         },
+        orderBy: { id: 'asc' },
     })
 }
 
