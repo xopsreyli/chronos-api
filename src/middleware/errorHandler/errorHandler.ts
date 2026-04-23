@@ -1,8 +1,8 @@
-import type { NextFunction, Request, Response } from 'express'
+import type {NextFunction, Request, Response} from 'express'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
 import errorMessages from '../../enums/error/messages/enums.js'
 import AppError from '../../utils/AppError/AppError.js'
-import { Prisma } from '../../generated/prisma/client.js'
+import {Prisma} from '../../generated/prisma/client.js'
 
 const errorHandler = (
     err: unknown,
