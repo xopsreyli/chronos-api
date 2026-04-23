@@ -2,23 +2,6 @@ import type {Event, EventCreationData, EventUpdateData,} from '../../types/event
 import verifyEventAccess from '../../middleware/verifyEventAccess/verifyEventAccess.js'
 
 const createEventService = <T extends Event>(model: any) => {
-    const getAllByCalendar = (calendarId: number, from: string, to: string): Promise<T[]> => {
-        let dateField: string
-        if ('from' in model.fields) dateField = 'from'
-        else if ('dateTime' in model.fields) dateField = 'dateTime'
-        else if ('date' in model.fields) dateField = 'date'
-
-        return model.findMany({
-            where: {
-                calendarId,
-                [dateField!]: {
-                    gte: new Date(from),
-                    lte: new Date(to),
-                },
-            }
-        })
-    }
-
     const create = (
         data: EventCreationData,
         calendarId: number,
@@ -51,7 +34,7 @@ const createEventService = <T extends Event>(model: any) => {
         await model.delete({where: {id}})
     }
 
-    return {getAllByCalendar, create, update, remove}
+    return {create, update, remove}
 }
 
 export default createEventService
