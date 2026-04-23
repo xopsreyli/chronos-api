@@ -8,7 +8,7 @@ const getAllByCalendar = (calendarId: number, from: string, to: string): Promise
     return prisma.task.findMany({
         where: {
             calendarId,
-            date: {
+            dateTime: {
                 gte: new Date(from),
                 lte: new Date(to)
             }

@@ -1,7 +1,7 @@
 export type TaskCreationData = {
     title: string
     description: string
-    date: Date
+    dateTime: Date
 }
 
 export type TaskUpdateData = Partial<TaskCreationData>

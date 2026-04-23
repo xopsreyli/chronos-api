@@ -81,7 +81,7 @@ model Task {
   userId      Int
   title       String
   description String   @db.Text
-  date        DateTime
+  dateTime    DateTime
 
   calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
   user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
