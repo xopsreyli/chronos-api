@@ -1,9 +1,17 @@
-import type {Request, Response} from 'express'
+import type { Request, Response } from 'express'
 import * as service from '../../services/calendar/service.js'
-import type {Calendar} from '../../generated/prisma/client.js'
+import type { Calendar } from '../../generated/prisma/client.js'
 import statusCodes from '../../enums/response/statusCodes/enums.js'
-import type {CalendarCreationData, CalendarUpdateData,} from '../../types/calendar/types.js'
-import type {CalendarEvents, Event, EventCreationData, EventType,} from '../../types/events/types.js'
+import type {
+    CalendarCreationData,
+    CalendarUpdateData,
+} from '../../types/calendar/types.js'
+import type {
+    CalendarEvents,
+    Event,
+    EventCreationData,
+    EventType,
+} from '../../types/events/types.js'
 import * as eventsService from '../../services/events/service.js'
 
 const getAll = async (req: Request, res: Response) => {
@@ -71,4 +79,4 @@ const createEvent = async (req: Request, res: Response) => {
     res.status(statusCodes.CREATED).json(event)
 }
 
-export {getAll, getOne, create, update, remove, getEvents, createEvent}
+export { getAll, getOne, create, update, remove, getEvents, createEvent }

@@ -1,9 +1,15 @@
-import type {CalendarEvents, Event, EventCreationData, EventType, EventUpdateData,} from '../../types/events/types.js'
+import type {
+    CalendarEvents,
+    Event,
+    EventCreationData,
+    EventType,
+    EventUpdateData,
+} from '../../types/events/types.js'
 import arrangementService from './arrangement/service.js'
 import reminderService from './reminder/service.js'
 import taskService from './task/service.js'
 import verifyCalendarAccess from '../../middleware/verifyCalendarAccess/verifyCalendarAccess.js'
-import {ARRANGEMENT, REMINDER, TASK} from '../../enums/events/enums.js'
+import { ARRANGEMENT, REMINDER, TASK } from '../../enums/events/enums.js'
 
 const eventServices = {
     [ARRANGEMENT]: arrangementService,
@@ -25,7 +31,7 @@ const getCalendarEvents = async (
         taskService.getAllByCalendar(calendarId, from, to),
     ])
 
-    return {arrangements, reminders, tasks}
+    return { arrangements, reminders, tasks }
 }
 
 const create = async (
@@ -56,4 +62,4 @@ const remove = async (
     await eventServices[type].remove(id, userId)
 }
 
-export {getCalendarEvents, create, update, remove}
+export { getCalendarEvents, create, update, remove }

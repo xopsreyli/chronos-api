@@ -1,4 +1,8 @@
-import type {Event, EventCreationData, EventUpdateData,} from '../../types/events/types.js'
+import type {
+    Event,
+    EventCreationData,
+    EventUpdateData,
+} from '../../types/events/types.js'
 import verifyEventAccess from '../../middleware/verifyEventAccess/verifyEventAccess.js'
 
 const createEventService = <T extends Event>(model: any) => {
@@ -24,17 +28,17 @@ const createEventService = <T extends Event>(model: any) => {
         await verifyEventAccess(model, id, userId)
 
         return model.update({
-            where: {id},
+            where: { id },
             data,
         })
     }
 
     const remove = async (id: number, userId: number): Promise<void> => {
         await verifyEventAccess(model, id, userId)
-        await model.delete({where: {id}})
+        await model.delete({ where: { id } })
     }
 
-    return {create, update, remove}
+    return { create, update, remove }
 }
 
 export default createEventService
