@@ -50,12 +50,19 @@ model UserCalendar {
   @@id([userId, calendarId])
 }
 
+enum EventType {
+  arrangement
+  reminder
+  task
+}
+
 model Arrangement {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   calendarId  Int
   userId      Int
+  type        EventType @default(arrangement)
   title       String
-  description String   @db.Text
+  description String    @db.Text
   from        DateTime
   to          DateTime
 
@@ -64,11 +71,12 @@ model Arrangement {
 }
 
 model Reminder {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   calendarId  Int
   userId      Int
+  type        EventType @default(reminder)
   title       String
-  description String   @db.Text
+  description String    @db.Text
   dateTime    DateTime
 
   calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
@@ -76,11 +84,12 @@ model Reminder {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   calendarId  Int
   userId      Int
+  type        EventType @default(task)
   title       String
-  description String   @db.Text
+  description String    @db.Text
   dateTime    DateTime
 
   calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
