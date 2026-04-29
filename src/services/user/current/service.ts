@@ -1,5 +1,5 @@
 import prisma from '../../../lib/prisma/prisma.js'
-import type { User } from '../../../generated/prisma/client.js'
+import type { Settings, User } from '../../../generated/prisma/client.js'
 import type { UserPublic } from '../../../types/user/types.js'
 
 const getUser = async (id: number): Promise<UserPublic> => {
@@ -14,4 +14,12 @@ const getUser = async (id: number): Promise<UserPublic> => {
     return userData
 }
 
-export { getUser }
+const getSettings = (id: number): Promise<Settings> => {
+    return prisma.settings.findUniqueOrThrow({
+        where: {
+            userId: id,
+        },
+    })
+}
+
+export { getUser, getSettings }

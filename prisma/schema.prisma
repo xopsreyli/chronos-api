@@ -17,6 +17,23 @@ model User {
   arrangements Arrangement[]
   reminders    Reminder[]
   tasks        Task[]
+  settings     Settings?
+}
+
+enum Theme {
+  light
+  dark
+}
+
+model Settings {
+  id               Int    @id @default(autoincrement())
+  userId           Int    @unique
+  theme            Theme  @default(light)
+  arrangementColor String @default("#60a5fa")
+  reminderColor    String @default("#f472b6")
+  taskColor        String @default("#a78bfa")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Calendar {

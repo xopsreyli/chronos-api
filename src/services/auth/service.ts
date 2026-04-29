@@ -33,6 +33,9 @@ const signUp = async (data: SignUpData): Promise<string> => {
             nickname: data.nickname,
             email: data.email,
             password: hashedPassword,
+            settings: {
+                create: {},
+            },
             calendars: {
                 create: {
                     calendar: {

@@ -8,5 +8,6 @@ const router: Router = Router()
 router.use(verifyUser)
 
 router.get('/', controllerHandler(controller.getUser))
+router.get('/settings', controllerHandler(controller.getSettings))
 
 export default router
