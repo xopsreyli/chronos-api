@@ -9,5 +9,6 @@ router.use(verifyUser)
 
 router.get('/', controllerHandler(controller.getUser))
 router.get('/settings', controllerHandler(controller.getSettings))
+router.patch('/settings', controllerHandler(controller.updateSettings))
 
 export default router

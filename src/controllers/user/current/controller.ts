@@ -3,6 +3,7 @@ import * as service from '../../../services/user/current/service.js'
 import statusCodes from '../../../enums/response/statusCodes/enums.js'
 import type { UserPublic } from '../../../types/user/types.js'
 import type { Settings } from '../../../generated/prisma/client.js'
+import type { SettingsUpdationData } from '../../../types/settings/types.js'
 
 const getUser = async (req: Request, res: Response) => {
     const id: number = req.userId!
@@ -18,4 +19,12 @@ const getSettings = async (req: Request, res: Response) => {
     res.status(statusCodes.OK).json(settings)
 }
 
-export { getUser, getSettings }
+const updateSettings = async (req: Request, res: Response) => {
+    const id: number = req.userId!
+    const data: SettingsUpdationData = req.body
+    const settings: Settings = await service.updateSettings(id, data)
+
+    res.status(statusCodes.OK).json(settings)
+}
+
+export { getUser, getSettings, updateSettings }
