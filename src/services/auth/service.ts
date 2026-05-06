@@ -12,7 +12,7 @@ import type {SignInData, SignUpData} from '../../types/auth/types.js'
 import {DEFAULT_CALENDAR_DESCRIPTION, DEFAULT_CALENDAR_NAME,} from '../../enums/calendar/enums.js'
 
 const signUp = async (data: SignUpData): Promise<string> => {
-    const existingUser: Nullable<User> = await prisma.user.findUnique({
+    const existingUser: Nullable<User> = await prisma.user.findFirst({
         where: {
             OR: [
                 {email: data.email},
