@@ -20,6 +20,9 @@ const errorHandler = (
         if (err.code === 'P2025') {
             status = statusCodes.NOT_FOUND
             message = errorMessages.general.NOT_FOUND
+        } else if (err.code === 'P2002') {
+            status = statusCodes.CONFLICT
+            message = errorMessages.general.UNIQUENESS_ERROR
         }
     }
 

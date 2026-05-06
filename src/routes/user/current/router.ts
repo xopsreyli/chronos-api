@@ -8,6 +8,8 @@ const router: Router = Router()
 router.use(verifyUser)
 
 router.get('/', controllerHandler(controller.getUser))
+router.patch('/nickname', controllerHandler(controller.updateNickname))
+router.patch('/password', controllerHandler(controller.updatePassword))
 router.get('/settings', controllerHandler(controller.getSettings))
 router.patch('/settings', controllerHandler(controller.updateSettings))
 
