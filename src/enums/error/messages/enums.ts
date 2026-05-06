@@ -1,6 +1,7 @@
 export default {
     auth: {
-        SIGNUP_UNIQUENESS_ERROR: 'User with such email already exists',
+        SIGNUP_UNIQUENESS_EMAIL_ERROR: 'User with such email already exists',
+        SIGNUP_UNIQUENESS_NICKNAME_ERROR: 'User with such nickname already exists',
         SIGNIN_ERROR: 'Invalid credentials',
     },
     general: {
