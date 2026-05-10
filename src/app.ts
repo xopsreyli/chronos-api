@@ -2,6 +2,7 @@ import express, { type Express } from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import authRouter from './routes/auth/router.js'
+import userRouter from './routes/user/router.js'
 import userCurrentRouter from './routes/user/current/router.js'
 import calendarRouter from './routes/calendar/router.js'
 import eventsRouter from './routes/events/router.js'
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/auth', authRouter)
+app.use('/api/users', userRouter)
 app.use('/api/user', userCurrentRouter)
 app.use('/api/calendars', calendarRouter)
 app.use('/api/events', eventsRouter)

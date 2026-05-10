@@ -8,11 +8,14 @@ const router: Router = Router()
 router.use(verifyUser)
 
 router.get('/', controllerHandler(controller.getAll))
-router.get('/:id', controllerHandler(controller.getOne))
+router.get('/invites', controllerHandler(controller.getInvites))
 router.post('/', controllerHandler(controller.create))
+router.post('/invites/:id', controllerHandler(controller.respondToInvite))
+router.get('/:id', controllerHandler(controller.getOne))
 router.patch('/:id', controllerHandler(controller.update))
 router.delete('/:id', controllerHandler(controller.remove))
 router.get('/:id/events', controllerHandler(controller.getEvents))
 router.post('/:id/events', controllerHandler(controller.createEvent))
+router.post('/:id/invite', controllerHandler(controller.invite))
 
 export default router

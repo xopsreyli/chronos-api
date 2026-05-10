@@ -13,11 +13,13 @@ model User {
   email    String @unique
   password String
 
-  calendars    UserCalendar[]
-  arrangements Arrangement[]
-  reminders    Reminder[]
-  tasks        Task[]
-  settings     Settings?
+  calendars       UserCalendar[]
+  arrangements    Arrangement[]
+  reminders       Reminder[]
+  tasks           Task[]
+  settings        Settings?
+  sentInvites     CalendarInvite[] @relation("Inviter")
+  receivedInvites CalendarInvite[] @relation("Invitee")
 }
 
 enum Theme {
@@ -47,6 +49,20 @@ model Calendar {
   arrangements Arrangement[]
   reminders    Reminder[]
   tasks        Task[]
+  invites      CalendarInvite[]
+}
+
+model CalendarInvite {
+  id         Int @id @default(autoincrement())
+  calendarId Int
+  inviterId  Int
+  inviteeId  Int
+
+  calendar Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  inviter  User     @relation("Inviter", fields: [inviterId], references: [id], onDelete: Cascade)
+  invitee  User     @relation("Invitee", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@unique([calendarId, inviteeId])
 }
 
 // enum Rights {

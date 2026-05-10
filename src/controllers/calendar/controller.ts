@@ -13,6 +13,11 @@ import type {
     EventType,
 } from '../../types/events/types.js'
 import * as eventsService from '../../services/events/service.js'
+import type {
+    InviteData,
+    RespondeToInviteData,
+} from '../../types/calendar/invite/types.js'
+import * as calendarInviteService from '../../services/calendarInvite/service.js'
 
 const getAll = async (req: Request, res: Response) => {
     const userId: number = req.userId!
@@ -79,4 +84,39 @@ const createEvent = async (req: Request, res: Response) => {
     res.status(statusCodes.CREATED).json(event)
 }
 
-export { getAll, getOne, create, update, remove, getEvents, createEvent }
+const getInvites = async (req: Request, res: Response) => {
+    const userId: number = req.userId!
+    const invites = await calendarInviteService.getInvites(userId)
+
+    res.status(statusCodes.OK).json(invites)
+}
+
+const invite = async (req: Request, res: Response) => {
+    const userId: number = req.userId!
+    const id: number = Number(req.params.id)
+    const data: InviteData = req.body
+    await calendarInviteService.invite(id, userId, data)
+
+    res.sendStatus(statusCodes.NO_CONTENT)
+}
+
+const respondToInvite = async (req: Request, res: Response) => {
+    const inviteId: number = Number(req.params.id)
+    const data: RespondeToInviteData = req.body
+    await calendarInviteService.respond(inviteId, data)
+
+    res.sendStatus(statusCodes.NO_CONTENT)
+}
+
+export {
+    getAll,
+    getOne,
+    create,
+    update,
+    remove,
+    getEvents,
+    createEvent,
+    getInvites,
+    invite,
+    respondToInvite,
+}

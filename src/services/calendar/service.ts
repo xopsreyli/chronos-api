@@ -54,9 +54,22 @@ const update = async (
 
 const remove = async (id: number, userId: number): Promise<void> => {
     await verifyCalendarAccess(id, userId)
-    await prisma.calendar.delete({
-        where: { id },
+
+    const relationsNumber = await prisma.userCalendar.count({
+        where: { calendarId: id },
     })
+
+    if (relationsNumber === 1) {
+        await prisma.calendar.delete({
+            where: { id },
+        })
+    } else {
+        await prisma.userCalendar.delete({
+            where: {
+                userId_calendarId: { userId, calendarId: id },
+            },
+        })
+    }
 }
 
 export { getAll, getOne, create, update, remove }
