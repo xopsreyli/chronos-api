@@ -11,7 +11,7 @@ const signUp = async (req: Request, res: Response) => {
     res.cookie('authToken', token, {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'none',
         expires: cookieExpireDate,
     }).sendStatus(statusCodes.CREATED)
 }
@@ -24,7 +24,7 @@ const signIn = async (req: Request, res: Response) => {
     res.cookie('authToken', token, {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'none',
         expires: cookieExpireDate,
     }).sendStatus(statusCodes.OK)
 }
@@ -33,7 +33,7 @@ const logout = async (req: Request, res: Response) => {
     res.clearCookie('authToken', {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict',
+        sameSite: 'none',
     }).sendStatus(statusCodes.OK)
 }
 
